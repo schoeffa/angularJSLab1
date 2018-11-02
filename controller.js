@@ -19,8 +19,9 @@ function TodoController() {
         vm.todolist.push({
             task: angular.copy(newToDo),
             completed: false
-        });
+        }); 
 
+        vm.todo = '';
     };
     
     vm.removeToDo = (index) => {

@@ -16,17 +16,23 @@
             <p class="title">TODO List</p>
             <p class="sub-title">A place to store the things you have to do!</p>
             <input type="text" placeholder="Filter your to-dos" ng-model="$ctrl.filterList">
-                <section class="listItem" ng-repeat="item in $ctrl.todolist | filter: $ctrl.filterList">
-                    <span>{{ $index + 1 }}.</span>
-                    <button ng-if="!item.completed" ng-click="$ctrl.completeTask($index)" class="complete">Complete</button>
-                    <span ng-class="{'completed': item.completed === true}">{{ item.task }}</span>
-                    <button class="material-icons" ng-click="$ctrl.removeToDo($index)">close</button>
-                </section>
-
-            <form ng-submit="$ctrl.addToDo($ctrl.todo)">
+            <section class="listItem" ng-repeat="item in $ctrl.todolist | filter: $ctrl.filterList">
+                <span>{{ $index + 1 }}.</span>
+                <button ng-if="!item.completed" ng-click="$ctrl.completeTask(item)" class="complete">Complete</button>
+                <span ng-class="{'completed': item.completed === true}">{{ item.task }}</span>
+                <button class="material-icons edit" ng-click="$ctrl.showEditForm(item)">edit</button>
+                <button class="material-icons close" ng-click="$ctrl.removeTask(item)">close</button>
+                <form class="edit-form" ng-if="item.edit" ng-submit="$ctrl.editTask(item, $ctrl.newEdit)">
+                    <input type="text" placeholder="Edit your task" ng-model="$ctrl.newEdit">
+                    <button class="material-icons">save</button>
+                </form>  
+            </section>
+ 
+            <form ng-submit="$ctrl.addTask($ctrl.todo)">
                 <input type="text" placeholder="Add your to-do" ng-model="$ctrl.todo">
                 <button class="addBtn">Add</button>
             </form>
+
         </section>
     </section>
     <script src=https://code.angularjs.org/1.6.5/angular.js> </script> <script src="module.js"></script>

@@ -1,35 +1,60 @@
 "use strict";
+
 function TodoController() {
     const vm = this;
     vm.todolist = [{
         task: "Walk the dog.",
-        completed: false
-    },{
+        completed: false,
+        edit: false
+    }, {
         task: "Go to the store.",
-        completed: true
-    },{
+        completed: true,
+        edit: false
+    }, {
         task: "Get gas.",
-        completed: false
-    },{
+        completed: false,
+        edit: false
+    }, {
         task: "Wash the car.",
-        completed: false
-    }
-];
-    vm.addToDo = (newToDo) => {
+        completed: false,
+        edit: false
+    }];
+    vm.addTask = (newToDo) => {
         vm.todolist.push({
             task: angular.copy(newToDo),
             completed: false
-        }); 
+        });
 
         vm.todo = '';
     };
-    
-    vm.removeToDo = (index) => {
-        vm.todolist.splice(index, 1);
+
+    vm.removeTask = (task) => {
+        vm.todolist.splice(vm.todolist.indexOf(task), 1);
     };
 
-    vm.completeTask = (index) => {
-        vm.todolist[index].completed = true;
+    vm.completeTask = (task) => {
+        task.completed = true;
+    };
+
+    //Only shows edit form if tasks are not completed
+    vm.showEditForm = (task) => {
+        if(!task.completed) {
+            task.edit = true;
+        }
+    };
+
+    //Accepts edits for task only if new edit has been entered
+    vm.editTask = (item, taskEdit) => {
+        if (taskEdit != '' && taskEdit != undefined) {
+            console.log(taskEdit);
+            item.task = taskEdit;
+            item.edit = false;
+            vm.newEdit = '';
+        }
+        else {
+            item.edit = false;
+            vm.newEdit = '';
+        }
     };
 }
 
